@@ -1,0 +1,23 @@
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .selected-date {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .react-calendar {
+    border: 1px solid #a0a096;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .react-calendar__tile--active {
+    background: #006edc;
+    color: white;
+  }
+  
