@@ -1,0 +1,27 @@
+.emergency-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .emergency-container h2,
+  .emergency-container h3 {
+    text-align: center;
+  }
+  
+  .emergency-container ol,
+  .emergency-container ul {
+    margin: 20px 0;
+    padding: 0 20px;
+  }
+  
+  .emergency-container li {
+    margin: 10px 0;
+  }
+  
+  .emergency-container strong {
+    color: #d9534f;
+  }
+  
