@@ -1,5 +1,5 @@
 from flask import render_template, jsonify, request
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token  # Import hinzugefügt
 from . import app, db  # Angepasster Importpfad
 from .models import User, Pflegeplan, Pflegebericht  # Angepasster Importpfad
 
