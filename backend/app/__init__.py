@@ -1,5 +1,5 @@
 from flask import Flask
-from backend.app.config import Config
+from .config import Config  # Angepasster Importpfad
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -13,5 +13,5 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from app import routes, models
+    from . import routes, models  # Angepasster Importpfad
     return app
