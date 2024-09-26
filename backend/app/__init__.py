@@ -1,5 +1,5 @@
 from flask import Flask
-from .config import Config  # Angepasster Importpfad
+from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -13,5 +13,6 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from . import routes, models  # Angepasster Importpfad
+    with app.app_context():
+        from . import routes, models
     return app

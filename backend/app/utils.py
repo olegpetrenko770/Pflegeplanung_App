@@ -7,33 +7,40 @@ from datetime import datetime
 def setup_logger(name, log_file, level=logging.INFO):
     """Konfiguriert den Logger."""
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    handler = logging.FileHandler(log_file)        
+    handler = logging.FileHandler(log_file)
     handler.setFormatter(formatter)
 
     logger = logging.getLogger(name)
-    logger.setLevel(level)
-    logger.addHandler(handler)
+    if not logger.hasHandlers():
+        logger.setLevel(level)
+        logger.addHandler(handler)
 
     return logger
 
 # JSON-Datei lesen
 def read_json(file_path):
     """Liest eine JSON-Datei und gibt die Daten zurück."""
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-    return data
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+        return data
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        logging.error(f"Error reading JSON file {file_path}: {e}")
+        return None
 
 # JSON-Datei schreiben
 def write_json(data, file_path):
     """Schreibt Daten in eine JSON-Datei."""
-    with open(file_path, 'w') as file:
-        json.dump(data, file, indent=4)
+    try:
+        with open(file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+    except IOError as e:
+        logging.error(f"Error writing JSON file {file_path}: {e}")
 
 # Überprüfen, ob ein Pfad existiert
 def ensure_dir(directory):
     """Stellt sicher, dass ein Verzeichnis existiert."""
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    os.makedirs(directory, exist_ok=True)
 
 # Aktuelles Datum und Uhrzeit abrufen
 def get_current_datetime():

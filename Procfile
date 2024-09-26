@@ -1,2 +1,5 @@
-web: node index.js
+web: heroku run python backend/app.py 
+
+
+
 

@@ -27,11 +27,11 @@ function App() {
       <section id="features">
         <h2>Funktionen</h2>
         <ul>
-          <li>Verwaltung von Aufgaben und Terminen</li>
-          <li>Übersicht über Ressourcen und Einsätze</li>
-          <li>Benutzerfreundliche Oberfläche</li>
-          <li>Leistungsstarke Funktionen zur Optimierung der Pflegeprozesse</li>
-          <li>Minimierung des administrativen Aufwands</li>
+          <li key="1">Verwaltung von Aufgaben und Terminen</li>
+          <li key="2">Übersicht über Ressourcen und Einsätze</li>
+          <li key="3">Benutzerfreundliche Oberfläche</li>
+          <li key="4">Leistungsstarke Funktionen zur Optimierung der Pflegeprozesse</li>
+          <li key="5">Minimierung des administrativen Aufwands</li>
         </ul>
       </section>
 
