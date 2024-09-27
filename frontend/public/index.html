@@ -5,56 +5,254 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pflege-App</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Zusätzliche CSS für aktive Navigation und Fehleranzeige */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #007BFF;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+        nav ul li a.active {
+            font-weight: bold;
+            color: #FFD700;
+        }
+        nav ul li a:hover {
+            color: #FFD700;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        section {
+            padding: 2rem 0;
+            background: #fff;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .error {
+            color: red;
+        }
+        form label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form button {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        form button:hover {
+            background: #0056b3;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Willkommen bei der Pflege-App</h1>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">Über uns</a></li>
-                <li><a href="#features">Funktionen</a></li>
-                <li><a href="#contact">Kontakt</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#register" class="nav-link">Registrieren</a></li>
+                <li><a href="#login" class="nav-link">Anmelden</a></li>
+                <li><a href="#create_pflegeplan" class="nav-link">Pflegeplan erstellen</a></li>
+                <li><a href="#create_pflegebericht" class="nav-link">Pflegebericht erstellen</a></li>
+                <li><a href="#about" class="nav-link">Über uns</a></li>
+                <li><a href="#features" class="nav-link">Funktionen</a></li>
+                <li><a href="#contact" class="nav-link">Kontakt</a></li>
+                <li><a href="#new_link" class="nav-link">New Link</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="about">
-        <h2>Über uns</h2>
-        <p>Unsere App ist eine innovative Pflegeanwendung, die darauf abzielt, die Verwaltung und Organisation von Pflegediensten effizient und benutzerfreundlich zu gestalten. Wir verstehen die Herausforderungen, denen Pflegekräfte und Pflegedienste täglich gegenüberstehen, und haben eine Lösung entwickelt, die den Alltag erleichtert.</p>
-        <p>Mit unserer App können Pflegekräfte ihre Aufgaben und Termine einfach verwalten, während Pflegedienste einen umfassenden Überblick über ihre Ressourcen und Einsätze behalten. Unsere benutzerfreundliche Oberfläche und die leistungsstarken Funktionen sorgen dafür, dass die Pflegeprozesse reibungslos und effizient ablaufen.</p>
-        <p>Unser Ziel ist es, die Qualität der Pflege zu verbessern und gleichzeitig den administrativen Aufwand zu minimieren. Wir sind stolz darauf, einen Beitrag zur Verbesserung der Pflegebranche zu leisten und die Arbeit der Pflegekräfte zu unterstützen.</p>
-        <p><strong>Unsere Mission</strong>: Die Pflege durch innovative Technologie zu revolutionieren und die bestmögliche Unterstützung für Pflegekräfte und Pflegedienste zu bieten.</p>
-        <p><strong>Unsere Vision</strong>: Eine Welt, in der Pflegekräfte und Pflegedienste durch modernste Technologie unterstützt werden, um die bestmögliche Pflege zu gewährleisten.</p>
-    </section>
+    <div class="container">
+        <section id="home">
+            <h2>Startseite</h2>
+            <p>Willkommen auf der Startseite der Pflege-App. Hier finden Sie alle Informationen und Funktionen, die unsere App bietet.</p>
+        </section>
 
-    <section id="features">
-        <h2>Funktionen</h2>
-        <ul>
-            <li>Verwaltung von Aufgaben und Terminen</li>
-            <li>Übersicht über Ressourcen und Einsätze</li>
-            <li>Benutzerfreundliche Oberfläche</li>
-            <li>Leistungsstarke Funktionen zur Optimierung der Pflegeprozesse</li>
-            <li>Minimierung des administrativen Aufwands</li>
-        </ul>
-    </section>
+        <section id="register">
+            <h2>Registrieren</h2>
+            <form id="registerForm">
+                <label for="registerName">Name:</label>
+                <input type="text" id="registerName" name="registerName" required>
+                
+                <label for="registerEmail">E-Mail:</label>
+                <input type="email" id="registerEmail" name="registerEmail" required>
+                
+                <label for="registerPassword">Passwort:</label>
+                <input type="password" id="registerPassword" name="registerPassword" required>
+                
+                <button type="submit">Registrieren</button>
+                <p id="registerFormError" class="error"></p>
+            </form>
+        </section>
 
-    <section id="contact">
-        <h2>Kontakt</h2>
-        <p>Wenn Sie Fragen haben oder Unterstützung benötigen, können Sie uns gerne kontaktieren:</p>
-        <form action="submit_form.php" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">E-Mail:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Nachricht:</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Absenden</button>
-        </form>
-    </section>
+        <section id="login">
+            <h2>Anmelden</h2>
+            <form id="loginForm">
+                <label for="loginEmail">E-Mail:</label>
+                <input type="email" id="loginEmail" name="loginEmail" required>
+                
+                <label for="loginPassword">Passwort:</label>
+                <input type="password" id="loginPassword" name="loginPassword" required>
+                
+                <button type="submit">Anmelden</button>
+                <p id="loginFormError" class="error"></p>
+            </form>
+        </section>
+
+        <section id="create_pflegeplan">
+            <h2>Pflegeplan erstellen</h2>
+            <form id="pflegeplanForm">
+                <label for="pflegeplanTitle">Titel:</label>
+                <input type="text" id="pflegeplanTitle" name="pflegeplanTitle" required>
+                
+                <label for="pflegeplanDetails">Details:</label>
+                <textarea id="pflegeplanDetails" name="pflegeplanDetails" required></textarea>
+                
+                <button type="submit">Erstellen</button>
+                <p id="pflegeplanFormError" class="error"></p>
+            </form>
+        </section>
+
+        <section id="create_pflegebericht">
+            <h2>Pflegebericht erstellen</h2>
+            <form id="pflegeberichtForm">
+                <label for="pflegeberichtTitle">Titel:</label>
+                <input type="text" id="pflegeberichtTitle" name="pflegeberichtTitle" required>
+                
+                <label for="pflegeberichtDetails">Details:</label>
+                <textarea id="pflegeberichtDetails" name="pflegeberichtDetails" required></textarea>
+                
+                <button type="submit">Erstellen</button>
+                <p id="pflegeberichtFormError" class="error"></p>
+            </form>
+        </section>
+
+        <section id="about">
+            <h2>Über uns</h2>
+            <p>Unsere App ist eine innovative Pflegeanwendung, die darauf abzielt, die Verwaltung und Organisation von Pflegediensten effizient und benutzerfreundlich zu gestalten. Wir verstehen die Herausforderungen, denen Pflegekräfte und Pflegedienste täglich gegenüberstehen, und haben eine Lösung entwickelt, die den Alltag erleichtert.</p>
+            <p>Mit unserer App können Pflegekräfte ihre Aufgaben und Termine einfach verwalten, während Pflegedienste einen umfassenden Überblick über ihre Ressourcen und Einsätze behalten. Unsere benutzerfreundliche Oberfläche und die leistungsstarken Funktionen sorgen dafür, dass die Pflegeprozesse reibungslos und effizient ablaufen.</p>
+            <p>Unser Ziel ist es, die Qualität der Pflege zu verbessern und gleichzeitig den administrativen Aufwand zu minimieren. Wir sind stolz darauf, einen Beitrag zur Verbesserung der Pflegebranche zu leisten und die Arbeit der Pflegekräfte zu unterstützen.</p>
+            <p><strong>Unsere Mission</strong>: Die Pflege durch innovative Technologie zu revolutionieren und die bestmögliche Unterstützung für Pflegekräfte und Pflegedienste zu bieten.</p>
+            <p><strong>Unsere Vision</strong>: Eine Welt, in der Pflegekräfte und Pflegedienste durch modernste Technologie unterstützt werden, um die bestmögliche Pflege zu gewährleisten.</p>
+        </section>
+
+        <section id="features">
+            <h2>Funktionen</h2>
+            <ul>
+                <li>Verwaltung von Aufgaben und Terminen</li>
+                <li>Übersicht über Ressourcen und Einsätze</li>
+                <li>Benutzerfreundliche Oberfläche</li>
+                <li>Leistungsstarke Funktionen zur Optimierung der Pflegeprozesse</li>
+                <li>Minimierung des administrativen Aufwands</li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Kontakt</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">E-Mail:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Nachricht:</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <button type="submit">Absenden</button>
+                <p id="formError" class="error"></p>
+            </form>
+        </section>
+    </div>
 
     <footer>
-        <p>© 2024 Pflege-App. Alle Rechte vorbehalten.</p>
+        <p>&copy; 2023 Pflege-App. Alle Rechte vorbehalten.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: 'smooth'
+                    });
+                    // Aktiven Link setzen
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Formularvalidierung
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    const formError = form.querySelector('.error');
+                    formError.textContent = '';
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        formError.textContent = 'Bitte füllen Sie alle Felder korrekt aus.';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

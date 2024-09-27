@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pflegeberichte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .report {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .report-date {
+            font-weight: bold;
+        }
+        .report-actions button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pflegeberichte</h1>
+    <div id="reports"></div>
+    <h2>Neuen Bericht hinzufügen</h2>
+    <form id="reportForm">
+        <label for="patientName">Patientenname:</label>
+        <input type="text" id="patientName" required>
+        <br>
+        <label for="reportDate">Datum:</label>
+        <input type="date" id="reportDate" required>
+        <br>
+        <label for="reportContent">Bericht:</label>
+        <textarea id="reportContent" required></textarea>
+        <br>
+        <button type="submit">Speichern</button>
+    </form>
+
+    <script>
+        document.getElementById('reportForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const patientName = document.getElementById('patientName').value;
+            const reportDate = document.getElementById('reportDate').value;
+            const reportContent = document.getElementById('reportContent').value;
+
+            const report = document.createElement('div');
+            report.className = 'report';
+            report.innerHTML = `
+                <div class="report-header">
+                    <span class="report-date">${reportDate}</span>
+                    <span class="report-actions">
+                        <button onclick="deleteReport(this)">Löschen</button>
+                    </span>
+                </div>
+                <div class="report-content">
+                    <strong>${patientName}</strong>: ${reportContent}
+                </div>
+            `;
+            document.getElementById('reports').appendChild(report);
+
+            document.getElementById('reportForm').reset();
+        });
+
+        function deleteReport(button) {
+            const report = button.closest('.report');
+            report.remove();
+        }
+    </script>
+</body>
+</html>

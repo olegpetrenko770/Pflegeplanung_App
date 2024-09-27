@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pflegeplan erstellen - Pflege-App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        nav ul li a.active {
+            font-weight: bold;
+        }
+        section {
+            padding: 2em;
+            background-color: white;
+            margin: 2em auto;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form label {
+            display: block;
+            margin-top: 1em;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 0.5em;
+            margin-top: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form button {
+            display: block;
+            width: 100%;
+            padding: 1em;
+            margin-top: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pflegeplan erstellen</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('create_pflegeplan') }}" class="active">Pflegeplan erstellen</a></li>
+                <li><a href="{{ url_for('create_pflegebericht') }}">Pflegebericht erstellen</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h2>Pflegeplan erstellen</h2>
+        <form action="{{ url_for('create_pflegeplan') }}" method="post">
+            <label for="patientenname">Patientenname:</label>
+            <input type="text" id="patientenname" name="patientenname" required>
+            <label for="informationen">Informationen:</label>
+            <textarea id="informationen" name="informationen"></textarea>
+            <label for="probleme_ressourcen">Probleme und Ressourcen:</label>
+            <textarea id="probleme_ressourcen" name="probleme_ressourcen"></textarea>
+            <label for="pflegeziele">Pflegeziele:</label>
+            <textarea id="pflegeziele" name="pflegeziele"></textarea>
+            <label for="pflegemassnahmen">Pflegemaßnahmen:</label>
+            <textarea id="pflegemassnahmen" name="pflegemassnahmen"></textarea>
+            <label for="durchfuehrung">Durchführung:</label>
+            <textarea id="durchfuehrung" name="durchfuehrung"></textarea>
+            <label for="beurteilung">Beurteilung:</label>
+            <textarea id="beurteilung" name="beurteilung"></textarea>
+            <button type="submit">Erstellen</button>
+        </form>
+    </section>
+    <footer>
+        <p>© 2024 Pflege-App. Alle Rechte vorbehalten.</p>
+    </footer>
+</body>
+</html>

@@ -1,14 +1,15 @@
 {
-    "name": "pflege-app",
-    "version": "1.0.0",
-    "main": "App.js",
-    "dependencies": {
-      "react": "^17.0.2",
-      "react-dom": "^17.0.2"
-    },
-    "devDependencies": {
-      "webpack": "^5.38.1",
-      "webpack-cli": "^4.7.2"
-    }
+  "name": "pflege-app",
+  "version": "1.0.0",
+  "description": "A description of your project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oleg Petrenko",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
   }
+}
   

@@ -1,4 +1,4 @@
-/* Grundlegende Stile */
+/* Base styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #fff;
@@ -8,62 +8,85 @@ body {
 
 /* Header-Stile */
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
+    background-color: #007BFF;
+    color: white;
+    padding: 1rem;
     text-align: center;
 }
 
-header h1 {
-    margin: 0;
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-/* Navigationsleiste */
-nav {
-    background-color: #444;
-    overflow: hidden;
+nav ul li {
+    margin: 0.5rem;
 }
 
-nav a {
-    float: left;
-    display: block;
-    color: #fff;
-    text-align: center;
-    padding: 14px 16px;
+nav ul li a {
+    color: white;
     text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
 }
 
-nav a:hover {
-    background-color: #ddd;
-    color: black;
+nav ul li a:hover,
+nav ul li a.active {
+    background-color: #0056b3;
+    border-radius: 5px;
 }
 
-/* Hauptinhalt */
-main {
-    padding: 20px;
+section {
+    padding: 2rem;
 }
 
-/* Karten-Stile */
-.card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-    padding: 20px;
-}
-
-.card h2 {
-    margin-top: 0;
-}
-
-/* Footer-Stile */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #f1f1f1;
     text-align: center;
-    padding: 10px 0;
+    padding: 1rem;
     position: fixed;
-    bottom: 0;
     width: 100%;
+    bottom: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    header {
+        text-align: left;
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    footer {
+        position: static;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 0.5rem;
+    }
+
+    nav ul li a {
+        padding: 0.5rem;
+    }
+
+    section {
+        padding: 0.5rem;
+    }
 }

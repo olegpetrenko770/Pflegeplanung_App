@@ -1,6 +1,8 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+
+db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,9 +12,15 @@ class User(db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def set_password(self, password):
+        """
+        Sets the user's password hash.
+        """
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
+        """
+        Checks the user's password against the stored hash.
+        """
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
@@ -26,9 +34,12 @@ class User(db.Model):
         }
 
 class Post(db.Model):
+    """
+    Post model for storing post details.
+    """
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140), nullable=False)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

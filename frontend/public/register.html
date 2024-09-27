@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrieren - Pflege-App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Registrieren</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('register') }}" class="active">Registrieren</a></li>
+                <li><a href="{{ url_for('login') }}">Anmelden</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h2>Registrieren</h2>
+        <form action="{{ url_for('register') }}" method="post">
+            <label for="username">Benutzername:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Passwort:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Registrieren</button>
+        </form>
+    </section>
+    <footer>
+        <p>© 2024 Pflege-App. Alle Rechte vorbehalten.</p>
+    </footer>
+</body>
+</html>

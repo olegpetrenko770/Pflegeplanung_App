@@ -84,8 +84,12 @@ def create_pflegebericht():
 @app.route('/pflegeplaene', methods=['GET'])
 @jwt_required()
 def get_pflegeplaene():
-    pflegeplaene = Pflegeplan.query.all()
-    return jsonify([pflegeplan.to_dict() for pflegeplan in pflegeplaene]), 200
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(username=current_user['username']).first()
+    if user:
+        pflegeplaene = Pflegeplan.query.filter_by(user_id=user.id).all()
+        return jsonify([pflegeplan.to_dict() for pflegeplan in pflegeplaene]), 200
+    return jsonify({'message': 'Benutzer nicht gefunden!'}), 404
 
 @app.route('/pflegeberichte/<int:pflegeplan_id>', methods=['GET'])
 @jwt_required()
@@ -102,3 +106,41 @@ def delete_pflegebericht(id):
         db.session.commit()
         return jsonify({'message': 'Pflegebericht erfolgreich gelöscht!'}), 200
     return jsonify({'message': 'Pflegebericht nicht gefunden!'}), 404
+
+@app.route('/pflegeplan/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_pflegeplan(id):
+    data = request.get_json()
+    pflegeplan = Pflegeplan.query.get(id)
+    if pflegeplan:
+        pflegeplan.patientenname = data.get('patientenname', pflegeplan.patientenname)
+        pflegeplan.informationen = data.get('informationen', pflegeplan.informationen)
+        pflegeplan.probleme_ressourcen = data.get('probleme_ressourcen', pflegeplan.probleme_ressourcen)
+        pflegeplan.pflegeziele = data.get('pflegeziele', pflegeplan.pflegeziele)
+        pflegeplan.pflegemassnahmen = data.get('pflegemassnahmen', pflegeplan.pflegemassnahmen)
+        pflegeplan.durchfuehrung = data.get('durchfuehrung', pflegeplan.durchfuehrung)
+        pflegeplan.beurteilung = data.get('beurteilung', pflegeplan.beurteilung)
+        db.session.commit()
+        return jsonify({'message': 'Pflegeplan erfolgreich aktualisiert!'}), 200
+    return jsonify({'message': 'Pflegeplan nicht gefunden!'}), 404
+
+@app.route('/pflegebericht/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_pflegebericht(id):
+    data = request.get_json()
+    pflegebericht = Pflegebericht.query.get(id)
+    if pflegebericht:
+        pflegebericht.datum = data.get('datum', pflegebericht.datum)
+        pflegebericht.inhalt = data.get('inhalt', pflegebericht.inhalt)
+        db.session.commit()
+        return jsonify({'message': 'Pflegebericht erfolgreich aktualisiert!'}), 200
+    return jsonify({'message': 'Pflegebericht nicht gefunden!'}), 404
+
+# Allgemeine Fehlerbehandlung
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'message': 'Ressource nicht gefunden!'}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({'message': 'Interner Serverfehler!'}), 500
