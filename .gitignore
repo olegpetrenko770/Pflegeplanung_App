@@ -1,15 +1,51 @@
-<<<<<<< HEAD
-.svn
-=======
-# Python files
-__pycache__/
-.venv/
-venv/
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# Django files
-staticfiles/
-db.sqlite3
+# Logs
+logs/
+*.log
+*.log.*
 
-# macOS files
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variables file
+.env
+
+# MacOS files
 .DS_Store
->>>>>>> ed98b7f30a24b6c34c59a55b7f52e8a017c3edb5
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Build directories
+dist/
+build/
+tmp/
+temp/
+
+# Coverage directory used by tools like istanbul
+coverage/
