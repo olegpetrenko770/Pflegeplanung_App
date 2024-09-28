@@ -1,0 +1,3 @@
+# Application Procfile
+
+web: python pflege-app/backend/pflege-app.py

@@ -1,6 +1,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from backend import db
 from sqlalchemy import func
 
 class User(db.Model):
