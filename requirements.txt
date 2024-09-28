@@ -10,3 +10,4 @@ whitenoise[brotli]>=6,<7
 # speed up installation and avoid errors from missing libraries/headers.
 #psycopg[c]; sys_platform == "linux"
 #psycopg[binary]; sys_platform != "linux"
+Flask==2.0.1
