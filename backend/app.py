@@ -1,6 +1,6 @@
-from backend import create_app  # Angepasster Importpfad
+from flask import Flask
 
-app = create_app()
+pflege_app = Flask(__name__)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)  # Host und Port hinzugefügt
+    pflege_app.run(debug=True, host='0.0.0.0', port=5000)  # Host und Port hinzugefügt
