@@ -1,4 +1,4 @@
-from . import create_app  # Angepasster Importpfad
+from backend import create_app  # Angepasster Importpfad
 
 app = create_app()
 
