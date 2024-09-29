@@ -1,6 +1,6 @@
 import unittest
 from django.test import TestCase
-from backend.models import YourModel
+from backend.main.models import YourModel
 
 class YourModelTestCase(TestCase):
     def setUp(self):

@@ -1,1 +1,1 @@
-web: python backend/pflege-app.py
+web: python backend/main/pflege_app.py

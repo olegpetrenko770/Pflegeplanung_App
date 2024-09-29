@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pflegeplan erstellen</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #00e676;
+            padding: 1em 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid #00e676;
+        }
+        header img {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            width: 50px;
+            height: 50px;
+            transform: rotateY(360deg);
+            transition: transform 1s;
+        }
+        header img:hover {
+            transform: rotateY(0deg);
+        }
+        main {
+            padding: 2em;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #2c2c2c;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+            border-radius: 8px;
+        }
+        form div {
+            margin-bottom: 1em;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+            color: #00e676;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid #00e676;
+            border-radius: 4px;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        button {
+            background-color: #00e676;
+            color: #1a1a1a;
+            padding: 0.75em 1.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00c853;
+        }
+        #summary {
+            display: none;
+            margin-top: 2em;
+            padding: 1em;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+        }
+        #summary h2 {
+            color: #00e676;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="3d-logo.png" alt="3D Logo">
+        <h1>Pflegeplan erstellen</h1>
+    </header>
+    <main>
+        <form id="pflegeplan-form" action="/pflegeplan" method="POST">
+            <div>
+                <label for="informationssammlung">Informationssammlung:</label>
+                <textarea id="informationssammlung" name="informationssammlung" required></textarea>
+            </div>
+            <div>
+                <label for="pflegeprobleme">Pflegeprobleme (PESR-Schema):</label>
+                <textarea id="pflegeprobleme" name="pflegeprobleme" required></textarea>
+            </div>
+            <div>
+                <label for="pflegeziele">Pflegeziele (SMART-Schema):</label>
+                <textarea id="pflegeziele" name="pflegeziele" required></textarea>
+            </div>
+            <div>
+                <label for="pflegemassnahmen">Pflegemaßnahmen:</label>
+                <textarea id="pflegemassnahmen" name="pflegemassnahmen" required></textarea>
+            </div>
+            <div>
+                <label for="durchfuehrung">Durchführung der Pflegemaßnahmen:</label>
+                <textarea id="durchfuehrung" name="durchfuehrung" required></textarea>
+            </div>
+            <div>
+                <label for="evaluation">Evaluation:</label>
+                <textarea id="evaluation" name="evaluation" required></textarea>
+            </div>
+            <div>
+                <label for="speicherort">Speicherort:</label>
+                <select id="speicherort" name="speicherort" required>
+                    <option value="local">Datenträger</option>
+                    <option value="cloud">Cloud</option>
+                </select>
+            </div>
+            <button type="submit">Pflegeplan erstellen</button>
+        </form>
+        <div id="summary">
+            <h2>Zusammenfassung</h2>
+            <p id="summary-content"></p>
+        </div>
+    </main>
+    <script>
+        document.getElementById('pflegeplan-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/pflegeplan', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                  alert(data.message);
+                  // PDF speichern
+                  const link = document.createElement('a');
+                  link.href = data.pdfUrl;
+                  link.download = 'pflegeplan.pdf';
+                  link.click();
+                  
+                  // Zusammenfassung anzeigen
+                  const summaryContent = `
+                      <strong>Informationssammlung:</strong> ${formData.get('informationssammlung')}<br>
+                      <strong>Pflegeprobleme:</strong> ${formData.get('pflegeprobleme')}<br>
+                      <strong>Pflegeziele:</strong> ${formData.get('pflegeziele')}<br>
+                      <strong>Pflegemaßnahmen:</strong> ${formData.get('pflegemassnahmen')}<br>
+                      <strong>Durchführung:</strong> ${formData.get('durchfuehrung')}<br>
+                      <strong>Evaluation:</strong> ${formData.get('evaluation')}<br>
+                      <strong>Speicherort:</strong> ${formData.get('speicherort')}
+                  `;
+                  document.getElementById('summary-content').innerHTML = summaryContent;
+                  document.getElementById('summary').style.display = 'block';
+              }).catch(error => {
+                  console.error('Error:', error);
+              });
+        });
+    </script>
+</body>
+</html>
