@@ -19,7 +19,7 @@ def create_app(config_class=Config):
 
     with app.app_context():
         from .main import models
-        from .main.auth import bp as auth_bp
+        from .auth import bp as auth_bp
         app.register_blueprint(auth_bp, url_prefix='/auth')
         from .main import bp as main_bp
         app.register_blueprint(main_bp)
