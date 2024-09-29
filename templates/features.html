@@ -6,17 +6,21 @@
     <title>Pflege App Features</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Orbitron', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #121212;
+            color: #ffffff;
         }
         header {
-            background-color: #4CAF50;
+            background: linear-gradient(45deg, #00ffcc, #0066ff);
             color: white;
             padding: 1rem 0;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .container {
             max-width: 1200px;
@@ -24,18 +28,22 @@
             padding: 0 1rem;
         }
         .feature {
-            background-color: white;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
             padding: 1rem;
             display: flex;
             align-items: center;
+            transition: transform 0.3s;
+        }
+        .feature:hover {
+            transform: scale(1.05);
         }
         .feature-icon {
             font-size: 2rem;
             margin-right: 1rem;
-            color: #4CAF50;
+            color: #00ffcc;
         }
         .feature-content {
             flex: 1;
@@ -43,9 +51,23 @@
         .feature-title {
             font-size: 1.5rem;
             margin: 0 0 0.5rem;
+            color: #00ffcc;
         }
         .feature-description {
             margin: 0;
+        }
+        .feature-button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, #00ffcc, #0066ff);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .feature-button:hover {
+            background: linear-gradient(45deg, #0066ff, #00ffcc);
         }
     </style>
 </head>
@@ -59,6 +81,7 @@
             <div class="feature-content">
                 <h2 class="feature-title">Benutzerfreundliche Oberfläche</h2>
                 <p class="feature-description">Unsere App bietet eine intuitive und benutzerfreundliche Oberfläche, die leicht zu navigieren ist.</p>
+                <button class="feature-button" onclick="callFeature('userInterface')">Funktion aufrufen</button>
             </div>
         </div>
         <div class="feature">
@@ -66,6 +89,7 @@
             <div class="feature-content">
                 <h2 class="feature-title">Terminplanung</h2>
                 <p class="feature-description">Planen und verwalten Sie Ihre Pflege-Termine einfach und effizient.</p>
+                <button class="feature-button" onclick="callFeature('schedule')">Funktion aufrufen</button>
             </div>
         </div>
         <div class="feature">
@@ -73,8 +97,27 @@
             <div class="feature-content">
                 <h2 class="feature-title">Medizinische Aufzeichnungen</h2>
                 <p class="feature-description">Halten Sie alle wichtigen medizinischen Informationen und Aufzeichnungen an einem Ort.</p>
+                <button class="feature-button" onclick="callFeature('medicalRecords')">Funktion aufrufen</button>
             </div>
         </div>
     </div>
+    <script>
+        function callFeature(feature) {
+            fetch(`/api/${feature}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                alert(`Feature ${feature} aufgerufen: ${JSON.stringify(data)}`);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>

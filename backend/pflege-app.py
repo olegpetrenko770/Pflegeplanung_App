@@ -1,18 +1,28 @@
-from flask import render_template, jsonify, request
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
+from flask import Flask, render_template, jsonify, request
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import app, db
-from .models import User, Pflegeplan, Pflegebericht
+from backend.models import User, Pflegeplan, Pflegebericht
+from backend import db
 
-@app.route('/')
+# Insert the code block at line 112, column 53
+
+db.session.commit()
+
+# Insert the code block at line 112, column 53
+
+pflege_app = Flask(__name__)
+pflege_app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Setze den geheimen Schlüssel für JWT
+jwt = JWTManager(pflege_app)
+
+@pflege_app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/example')
+@pflege_app.route('/example')
 def example():
     return jsonify({'message': 'Example response'})
 
-@app.route('/register', methods=['GET', 'POST'])
+@pflege_app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         data = request.get_json()
@@ -29,7 +39,7 @@ def register():
         return jsonify({'message': 'Benutzer erfolgreich registriert!'}), 201
     return render_template('register.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@pflege_app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         data = request.get_json()
@@ -40,7 +50,7 @@ def login():
         return jsonify({'message': 'Anmeldung fehlgeschlagen!'}), 401
     return render_template('login.html')
 
-@app.route('/pflegeplan', methods=['GET', 'POST'])
+@pflege_app.route('/pflegeplan', methods=['GET', 'POST'])
 @jwt_required()
 def create_pflegeplan():
     if request.method == 'POST':
@@ -63,7 +73,7 @@ def create_pflegeplan():
         return jsonify({'message': 'Benutzer nicht gefunden!'}), 404
     return render_template('pflegeplan.html')
 
-@app.route('/pflegebericht', methods=['GET', 'POST'])
+@pflege_app.route('/pflegebericht', methods=['GET', 'POST'])
 @jwt_required()
 def create_pflegebericht():
     if request.method == 'POST':
@@ -81,7 +91,7 @@ def create_pflegebericht():
         return jsonify({'message': 'Pflegeplan nicht gefunden!'}), 404
     return render_template('pflegebericht.html')
 
-@app.route('/pflegeplaene', methods=['GET'])
+@pflege_app.route('/pflegeplaene', methods=['GET'])
 @jwt_required()
 def get_pflegeplaene():
     current_user = get_jwt_identity()
@@ -91,14 +101,15 @@ def get_pflegeplaene():
         return jsonify([pflegeplan.to_dict() for pflegeplan in pflegeplaene]), 200
     return jsonify({'message': 'Benutzer nicht gefunden!'}), 404
 
-@app.route('/pflegeberichte/<int:pflegeplan_id>', methods=['GET'])
+@pflege_app.route('/pflegeberichte/<int:pflegeplan_id>', methods=['GET'])
 @jwt_required()
 def get_pflegeberichte(pflegeplan_id):
     pflegeberichte = Pflegebericht.query.filter_by(pflegeplan_id=pflegeplan_id).all()
     return jsonify([bericht.to_dict() for bericht in pflegeberichte]), 200
 
-@app.route('/pflegebericht/<int:id>', methods=['DELETE'])
+@pflege_app.route('/pflegebericht/<int:id>', methods=['DELETE'])
 @jwt_required()
+
 def delete_pflegebericht(id):
     pflegebericht = Pflegebericht.query.get(id)
     if pflegebericht:
@@ -107,7 +118,7 @@ def delete_pflegebericht(id):
         return jsonify({'message': 'Pflegebericht erfolgreich gelöscht!'}), 200
     return jsonify({'message': 'Pflegebericht nicht gefunden!'}), 404
 
-@app.route('/pflegeplan/<int:id>', methods=['PUT'])
+@pflege_app.route('/pflegeplan/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_pflegeplan(id):
     data = request.get_json()
@@ -124,7 +135,7 @@ def update_pflegeplan(id):
         return jsonify({'message': 'Pflegeplan erfolgreich aktualisiert!'}), 200
     return jsonify({'message': 'Pflegeplan nicht gefunden!'}), 404
 
-@app.route('/pflegebericht/<int:id>', methods=['PUT'])
+@pflege_app.route('/pflegebericht/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_pflegebericht(id):
     data = request.get_json()
@@ -137,10 +148,13 @@ def update_pflegebericht(id):
     return jsonify({'message': 'Pflegebericht nicht gefunden!'}), 404
 
 # Allgemeine Fehlerbehandlung
-@app.errorhandler(404)
+@pflege_app.errorhandler(404)
 def not_found(error):
     return jsonify({'message': 'Ressource nicht gefunden!'}), 404
 
-@app.errorhandler(500)
+@pflege_app.errorhandler(500)
 def internal_error(error):
     return jsonify({'message': 'Interner Serverfehler!'}), 500
+
+if __name__ == '__main__':
+    pflege_app.run(debug=True, host='0.0.0.0', port=5000)
